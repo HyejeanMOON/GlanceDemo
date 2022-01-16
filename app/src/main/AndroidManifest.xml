@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.hyejeanmoon.glancedemo">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GlanceDemo"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.GlanceDemo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".GlanceReceiver"
+            android:enabled="@bool/glance_appwidget_available"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <!-- 小部件配置信息 -->
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/glance_info" />
+        </receiver>
+
+        <receiver
+            android:name=".GlanceBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.hyejeanmoon.glancedemo" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".GlanceService" />
+    </application>
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+        android:minWidth="180dp"
+        android:minHeight="50dp"
+        android:previewImage="@mipmap/today_preview"
+        android:resizeMode="horizontal|vertical"
+        android:targetCellWidth="3"
+        android:targetCellHeight="1"
+        android:widgetCategory="home_screen" />
+</manifest>
