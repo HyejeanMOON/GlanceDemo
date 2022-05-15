@@ -14,7 +14,7 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.action.ActionCallback
 import androidx.glance.appwidget.action.actionRunCallback
-import androidx.glance.appwidget.action.actionStartBroadcastReceiver
+import androidx.glance.appwidget.action.actionSendBroadcast
 import androidx.glance.appwidget.action.actionStartService
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.layout.*
@@ -143,7 +143,7 @@ class GlanceWidget : GlanceAppWidget() {
             ACTION_BROADCAST -> {
                 val intent = Intent(context, GlanceBroadcastReceiver::class.java)
                 intent.putExtra(GlanceBroadcastReceiver.BROADCAST_KEY, str)
-                actionStartBroadcastReceiver(
+                actionSendBroadcast(
                     intent
                 )
             }
@@ -161,8 +161,8 @@ class GlanceWidget : GlanceAppWidget() {
         }
     }
 
-    override suspend fun onDelete(glanceId: GlanceId) {
-        super.onDelete(glanceId)
+    override suspend fun onDelete(context: Context, glanceId: GlanceId) {
+        super.onDelete(context, glanceId)
     }
 
     override val stateDefinition: GlanceStateDefinition<*>?
